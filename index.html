@@ -1,37 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Audio Guide</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muzak Player</title>
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* voorkomt scrollen */
+      background-color: #111;
+      font-family: sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background-color: #f3f3f3;
-      margin: 0;
     }
-    .player {
-      text-align: center;
+
+    audio {
+      width: 90%;
+      max-width: 400px;
+      outline: none;
     }
   </style>
 </head>
 <body>
-
-  <!-- 🔁 Muzak autoplay en loop (verborgen) -->
-  <audio autoplay loop>
-    <source src="muzak1.mp3" type="audio/mpeg">
+  <audio controls autoplay loop>
+    <source src="muzak1.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
-
-  <!-- 🕳️ Lege audiofile die manueel afgespeeld kan worden -->
-  <div class="player">
-    <audio controls>
-      <source src="stilte.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-  </div>
-
 </body>
 </html>
