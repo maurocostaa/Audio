@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muzak Background with Play Button</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #f3f3f3;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .play-button {
+      width: 80px;
+      height: 80px;
+      background-color: #fff;
+      border-radius: 50%;
+      position: relative;
+      cursor: default;
+    }
+
+    .play-button::before {
+      content: "";
+      position: absolute;
+      top: 24px;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border-left: 26px solid #000;
+      border-top: 16px solid transparent;
+      border-bottom: 16px solid transparent;
+    }
+
+    audio {
+      display: none; /* Verberg de echte speler */
+    }
+  </style>
+</head>
+<body>
+  <div class="play-button"></div>
+
+  <audio autoplay loop>
+    <source src="muzak1.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+</body>
+</html>
