@@ -63,7 +63,7 @@
   <div class="player-container">
     <div class="controls">
       <button id="backward">⇠ 15s</button>
-      <button id="play-pause">▷ Play</button>
+      <button id="play-pause">Play</button>
       <button id="forward">15s ⇢</button>
     </div>
 
@@ -85,10 +85,10 @@
     playPauseBtn.addEventListener('click', () => {
       if (audio.paused) {
         audio.play();
-        playPauseBtn.innerText = '⎮⎮ Pause';
+        playPauseBtn.innerText = 'Pause';
       } else {
         audio.pause();
-        playPauseBtn.innerText = '▷ Play';
+        playPauseBtn.innerText = 'Play';
       }
     });
 
