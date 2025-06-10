@@ -92,22 +92,30 @@
       }
     });
 
+        // Skip backward
     backwardBtn.addEventListener('click', () => {
       audio.currentTime = Math.max(0, audio.currentTime - 15);
     });
 
+    // Skip forward
     forwardBtn.addEventListener('click', () => {
-      audio.currentTime = Math.min(audio.duration, audio.currentTime + 15);
+      if (!isNaN(audio.duration)) {
+        audio.currentTime = Math.min(audio.duration, audio.currentTime + 15);
+      }
     });
 
-    // Update seekbar as audio plays
+    // Update the seekbar as audio plays
     audio.addEventListener('timeupdate', () => {
-      seekbar.value = (audio.currentTime / audio.duration) * 100;
+      if (!isNaN(audio.duration)) {
+        seekbar.value = (audio.currentTime / audio.duration) * 100;
+      }
     });
 
-    // Seek when user interacts with the slider
+    // Seek audio when slider is moved
     seekbar.addEventListener('input', () => {
-      audio.currentTime = (seekbar.value / 100) * audio.duration;
+      if (!isNaN(audio.duration)) {
+        audio.currentTime = (seekbar.value / 100) * audio.duration;
+      }
     });
   </script>
   
