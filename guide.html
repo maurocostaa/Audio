@@ -16,50 +16,98 @@
       align-items: center;
     }
 
-    .play-button {
-      width: 80px;
-      height: 80px;
-      background-color: #fff;
-      border-radius: 50%;
-      position: relative;
-      cursor: default;
+   .player-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #111;
+      padding: 20px;
+      border-radius: 12px;
+      color: white;
+      font-family: sans-serif;
+      width: 90%;
+      max-width: 400px;
     }
-    .play-button:hover {
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background-color: #fff;
+      border: none;
+      color: #000;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
       background-color: #ddd;
     }
 
-    .play-button::before {
-      content: "";
-      position: absolute;
-      top: 24px;
-      left: 30px;
-      width: 0;
-      height: 0;
-      border-left: 26px solid #000;
-      border-top: 16px solid transparent;
-      border-bottom: 16px solid transparent;
-    }
-
-    audio {
-      display: none; /* Verberg de echte speler */
+    input[type="range"] {
+      width: 100%;
+      margin: 10px 0;
     }
   </style>
 </head>
 <body>
 
-    <button id="play-button">Play</button>
+  <div class="player-container">
+    <div class="controls">
+      <button id="backward">⏪ 15s</button>
+      <button id="play-pause">▶️ Play</button>
+      <button id="forward">15s ⏩</button>
+    </div>
 
-  <audio id="audio-player">
-    <source src="muzak1.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
+    <input type="range" id="seekbar" value="0" min="0" max="100" step="1">
+
+    <audio id="audio">
+      <source src="muzak1.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
 
   <script>
-    const button = document.getElementById('play-button');
-    const audio = document.getElementById('audio-player');
+    const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('play-pause');
+    const backwardBtn = document.getElementById('backward');
+    const forwardBtn = document.getElementById('forward');
+    const seekbar = document.getElementById('seekbar');
 
-    button.addEventListener('click', () => {
-      audio.play();
+    playPauseBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.innerText = '⏸️ Pause';
+      } else {
+        audio.pause();
+        playPauseBtn.innerText = '▶️ Play';
+      }
+    });
+
+    backwardBtn.addEventListener('click', () => {
+      audio.currentTime = Math.max(0, audio.currentTime - 15);
+    });
+
+    forwardBtn.addEventListener('click', () => {
+      audio.currentTime = Math.min(audio.duration, audio.currentTime + 15);
+    });
+
+    // Update seekbar as audio plays
+    audio.addEventListener('timeupdate', () => {
+      seekbar.value = (audio.currentTime / audio.duration) * 100;
+    });
+
+    // Seek when user interacts with the slider
+    seekbar.addEventListener('input', () => {
+      audio.currentTime = (seekbar.value / 100) * audio.duration;
     });
   </script>
   
