@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Audio Guide</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     html, body {
       margin: 0;
@@ -67,18 +68,25 @@
       width: 100%;
       margin: 10px 0;
     }
+    .rotate-on-click {
+  animation: rotate 0.5s ease-in-out;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
   </style>
 </head>
 <body>
 
   <h1>Audio   Guide</h1>
   
-  <div class="player-container">
-    <div class="controls">
-      <button id="backward">⇠ 15s</button>
-      <button id="play-pause">Play</button>
-      <button id="forward">15s ⇢</button>
-    </div>
+  <div class="controls">
+    <button id="backward"><i class="fas fa-rotate-left"></i> 15</button>
+    <button id="play-pause"><i class="fas fa-play"></i></button>
+    <button id="forward">15 <i class="fas fa-rotate-right"></i></button>
+  </div>
 
     <input type="range" id="seekbar" value="0" min="0" max="100" step="0.1">
 
@@ -97,26 +105,35 @@
       const seekbar = document.getElementById('seekbar');
 
       // Play / Pause
-      playPauseBtn.addEventListener('click', () => {
-        if (audio.paused) {
-          audio.play();
-          playPauseBtn.innerText = 'Pause';
-        } else {
-          audio.pause();
-          playPauseBtn.innerText = 'Play';
-        }
-      });
+    playPauseBtn.addEventListener('click', () => {
+      const icon = playPauseBtn.querySelector('i');
+      if (audio.paused) {
+        audio.play();
+        icon.classList.remove('fa-play');
+        icon.classList.add('fa-pause');
+      } else {
+        audio.pause();
+        icon.classList.remove('fa-pause');
+        icon.classList.add('fa-play');
+       }
+    });
 
       // Skip backward
-      backwardBtn.addEventListener('click', () => {
-        audio.currentTime = Math.max(0, audio.currentTime - 15);
-      });
+    backwardBtn.addEventListener('click', () => {
+      audio.currentTime = Math.max(0, audio.currentTime - 15);
+      const icon = backwardBtn.querySelector('i');
+      icon.classList.add('rotate-on-click');
+      setTimeout(() => icon.classList.remove('rotate-on-click'), 500);
+    });
 
       // Skip forward
       forwardBtn.addEventListener('click', () => {
         if (!isNaN(audio.duration)) {
           audio.currentTime = Math.min(audio.duration, audio.currentTime + 15);
         }
+        const icon = forwardBtn.querySelector('i');
+        icon.classList.add('rotate-on-click');
+        setTimeout(() => icon.classList.remove('rotate-on-click'), 500);
       });
 
       // Update the seekbar as audio plays
