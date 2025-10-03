@@ -175,7 +175,7 @@
         gallerySlider.innerHTML = '';
         imageFiles.forEach((file, idx) => {
           const img = document.createElement('img');
-          img.src = `foto's galerij audioguide/${file}`;
+          img.src = `images/${file}`;
           img.className = 'gallery-image' + (idx === currentIndex ? ' active' : '');
           img.addEventListener('click', () => {
             if (idx !== currentIndex) {
